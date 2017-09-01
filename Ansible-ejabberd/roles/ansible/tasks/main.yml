@@ -1,0 +1,28 @@
+---
+  - name: Setup ejjabberd package
+    apt:
+      name: ejabberd
+      state: present
+      update_cache: yes
+
+  - name: Config ejabberd.yml
+    template:
+      src: ejabberd.yml.j2
+      dest: "{{ eja_config }}"
+      mode: 0755
+
+  - name: Restart service
+    systemd: 
+      name: ejabberd
+      state: restarted
+
+
+  - name: Pause to wait ejabberd load
+    pause:
+      seconds: 10
+
+  - name: Create User
+    ejabberd_user:
+      username: "{{ user_name }}"
+      host: "{{ ansible_hostname }}"
+      password: 123456

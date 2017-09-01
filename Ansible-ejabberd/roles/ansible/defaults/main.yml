@@ -1,0 +1,4 @@
+---
+  user_name: admin
+  server_name: "{{ ansible_default_ipv4.address }}"
+  eja_config: /etc/ejabberd/ejabberd.yml
